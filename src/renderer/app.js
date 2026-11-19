@@ -680,6 +680,17 @@
 
     els.btnTheme.addEventListener('click', toggleTheme);
 
+    document.querySelectorAll('[data-external-link]').forEach((link) => {
+      link.addEventListener('click', async (event) => {
+        event.preventDefault();
+        try {
+          await window.qlink.external.open(link.dataset.externalLink);
+        } catch {
+          showToast('No se pudo abrir el enlace en el navegador.', true);
+        }
+      });
+    });
+
     els.btnHistory.addEventListener('click', openHistoryModal);
     els.closeHistory.addEventListener('click', () => els.historyModal.classList.add('hidden'));
     els.btnClearHistory.addEventListener('click', async () => {

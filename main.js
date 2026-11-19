@@ -2,11 +2,15 @@
 // Proceso principal de Electron para Q-Link
 // Maneja la ventana de la app, el menu, dialogos de archivo y el historial persistente
 
-const { app, BrowserWindow, ipcMain, dialog, Menu, nativeImage, clipboard } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Menu, nativeImage, clipboard, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
 const isDev = process.argv.includes('--dev');
+const OFFICIAL_EXTERNAL_LINKS = Object.freeze({
+  portfolio: 'https://jimmydiaz-portfolio.vercel.app',
+  github: 'https://github.com/jimmyfabian26-sys'
+});
 
 // ---------- Almacenamiento simple basado en archivos JSON (userData) ----------
 // Se evita una dependencia externa pesada y se replica el comportamiento de
@@ -136,6 +140,14 @@ function handleIpc(channel, handler) {
     return handler(event, ...args);
   });
 }
+
+// Abrir únicamente destinos oficiales, nunca una URL libre del renderer.
+handleIpc('external:open', (_evt, target) => {
+  if (typeof target !== 'string' || !Object.hasOwn(OFFICIAL_EXTERNAL_LINKS, target)) {
+    throw new Error('Enlace externo no autorizado.');
+  }
+  return shell.openExternal(OFFICIAL_EXTERNAL_LINKS[target]);
+});
 
 // =================== IPC: Configuracion ===================
 handleIpc('config:get', (_evt, key) => configStore.get(key));

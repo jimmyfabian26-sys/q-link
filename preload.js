@@ -68,6 +68,11 @@ contextBridge.exposeInMainWorld('qlink', {
     copyImage: (dataUrl) => ipcRenderer.invoke('clipboard:copyImage', dataUrl)
   },
 
+  // ---------- Enlaces oficiales verificados por el proceso principal ----------
+  external: {
+    open: (target) => ipcRenderer.invoke('external:open', target)
+  },
+
   // ---------- Info de plataforma ----------
   platform: process.platform
 });

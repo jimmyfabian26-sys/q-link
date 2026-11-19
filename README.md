@@ -17,7 +17,7 @@ Crea códigos QR para enlaces, texto y redes Wi-Fi. Personaliza colores, degrada
 ![Windows](https://img.shields.io/badge/Escritorio-Windows-0078D4?logo=windows11&logoColor=white)
 [![Pruebas](https://github.com/jimmyfabian26-sys/q-link/actions/workflows/checks.yml/badge.svg)](https://github.com/jimmyfabian26-sys/q-link/actions/workflows/checks.yml)
 
-[🌐 **Probar la web**](https://q-link-jet.vercel.app) · [📖 **Guía web**](web/README.md) · [💻 **Código fuente**](https://github.com/jimmyfabian26-sys/q-link) · [⚙️ **Pruebas**](https://github.com/jimmyfabian26-sys/q-link/actions/workflows/checks.yml)
+[🌐 **Probar la web**](https://q-link-jet.vercel.app) · [🧑‍💻 **Portafolio**](https://jimmydiaz-portfolio.vercel.app) · [📖 **Guía web**](web/README.md) · [💻 **Código fuente**](https://github.com/jimmyfabian26-sys/q-link) · [⚙️ **Pruebas**](https://github.com/jimmyfabian26-sys/q-link/actions/workflows/checks.yml)
 
 **J.D DEV · Jimmy Díaz**
 
@@ -146,6 +146,10 @@ vercel.json             Despliegue web desde la raíz del repositorio
 ## 🖼️ Vista de la aplicación
 
 La interfaz web está disponible para probar directamente: **[Abrir Q-Link Web](https://q-link-jet.vercel.app)**. El logotipo mostrado al inicio de este README es el recurso original incluido en el repositorio.
+
+## 🔗 Enlaces del desarrollador
+
+La web ofrece enlaces al [portafolio](https://jimmydiaz-portfolio.vercel.app) y al [GitHub del autor](https://github.com/jimmyfabian26-sys). En Electron, ambos se abren en el navegador predeterminado mediante un canal IPC que admite solo esos destinos; la navegación remota dentro de la aplicación sigue bloqueada.
 
 ## 🎨 Identidad visual
 
