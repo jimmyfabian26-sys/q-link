@@ -49,13 +49,17 @@ npx vercel --prod
 
 `vercel.json` declara la salida estática y cabeceras de seguridad. No necesita variables de entorno, base de datos ni claves privadas. [Documentación oficial de despliegue](https://vercel.com/docs/cli/deploy).
 
+## Portafolio y código del autor
+
+La web incluye enlaces al [portafolio de Jimmy Díaz](https://jimmydiaz-portfolio.vercel.app) y a su [GitHub](https://github.com/jimmyfabian26-sys). Los destinos se configuran en `config.json` y se abren en una pestaña nueva.
+
 ## Donaciones y autor
 
-`config.json` contiene `donationUrl` y `authorUrl`, ambos enlaces públicos HTTPS. Modifica los valores y recompila si cambia la cuenta de destino. La dirección de PayPal aparece en la propia URL de pago; no es una clave secreta. Q-Link no verifica recepción de aportes ni cobra una cantidad fija.
+`config.json` contiene `donationUrl`, `authorUrl` y `portfolioUrl`, todos enlaces públicos HTTPS. Modifica los valores y recompila si cambia la cuenta de destino. La dirección de PayPal aparece en la propia URL de pago; no es una clave secreta. Q-Link no verifica recepción de aportes ni cobra una cantidad fija.
 
 ## Pruebas
 
-`npm test` ejecuta 12 pruebas con `node:test`: validación de enlaces, contenido Wi-Fi, protección del historial, contraste y decodificación real de QR exportados en distintas resoluciones, degradados y logos. Las bibliotecas de canvas y decodificación solo son dependencias de desarrollo.
+`npm test` ejecuta 13 pruebas con `node:test`: validación de enlaces, contenido Wi-Fi, protección del historial, contraste y decodificación real de QR exportados en distintas resoluciones, degradados y logos. Las bibliotecas de canvas y decodificación solo son dependencias de desarrollo.
 
 ## Estructura
 

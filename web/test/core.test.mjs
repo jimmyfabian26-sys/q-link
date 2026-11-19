@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
 import jsQR from 'jsqr';
 import { normalizeLink, wifiContent, createMatrix, cleanDesign, analyzeContrast, newHistoryEntry, readHistory, DEFAULT_DESIGN } from '../src/core.js';
@@ -66,4 +67,15 @@ test('PNG y SVG con un logo conservan lectura; SVG rechaza contenido externo', a
   const canvas = createCanvas(1024, 1024); canvas.getContext('2d').drawImage(await loadImage(Buffer.from(svg)), 0, 0);
   assert.equal(decode(canvas), content);
   assert.ok(!renderSvg(matrix, DEFAULT_DESIGN, 'https://host.test/a.svg').includes('<image'));
+});
+
+test('enlaces del portafolio y GitHub configurados en Q-Link Web', () => {
+  const config = JSON.parse(readFileSync(new URL('../config.json', import.meta.url), 'utf8'));
+  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const app = readFileSync(new URL('../src/app.js', import.meta.url), 'utf8');
+  assert.equal(new URL(config.portfolioUrl).hostname, 'jimmydiaz-portfolio.vercel.app');
+  assert.equal(new URL(config.authorUrl).hostname, 'github.com');
+  for (const id of ['topPortfolio', 'portfolioLink', 'authorLink']) assert.match(html, new RegExp('id="' + id + '"'));
+  assert.match(app, /config\.portfolioUrl/);
+  assert.match(app, /config\.authorUrl/);
 });

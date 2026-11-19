@@ -211,5 +211,8 @@ for (const id of ['donate', 'topDonate']) {
   if (config.donationUrl) $(id).href = config.donationUrl; else $(id).hidden = true;
 }
 $('authorLink').href = config.authorUrl;
+for (const id of ['topPortfolio', 'portfolioLink']) {
+  if (config.portfolioUrl) $(id).href = config.portfolioUrl; else $(id).hidden = true;
+}
 state.history = readHistory(readStorage(HISTORY_KEY)); updateHistoryCount();
 setTheme(readStorage(THEME_KEY) === 'light' ? 'light' : 'dark'); syncDesign(); refresh();

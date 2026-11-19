@@ -5,7 +5,7 @@ import path from 'node:path';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const config = JSON.parse(await readFile(path.join(root, 'config.json'), 'utf8'));
-for (const key of ['donationUrl', 'authorUrl']) {
+for (const key of ['donationUrl', 'authorUrl', 'portfolioUrl']) {
   if (typeof config[key] !== 'string') throw new Error(`${key} debe ser texto.`);
   if (config[key] && new URL(config[key]).protocol !== 'https:') throw new Error(`${key} debe usar HTTPS.`);
 }
