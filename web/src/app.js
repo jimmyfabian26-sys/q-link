@@ -1,12 +1,12 @@
 import './style.css';
-import { DEFAULT_DESIGN, PRESETS, normalizeLink, wifiContent, createMatrix, analyzeContrast } from './core.js';
+import { DEFAULT_DESIGN, PRESETS, cleanDesign, normalizeLink, wifiContent, createMatrix, analyzeContrast, readHistory, newHistoryEntry } from './core.js';
 import { renderCanvas, renderSvg } from './render.js';
 
 const $ = id => document.getElementById(id);
 const config = __APP_CONFIG__;
-const LEGACY_HISTORY_KEY = 'qlink.web.history.v1';
+const HISTORY_KEY = 'qlink.web.history.v1';
 const THEME_KEY = 'qlink.web.theme.v1';
-const state = { mode: 'link', design: { ...DEFAULT_DESIGN }, matrix: null, content: '', logo: null, logoData: null, busy: false };
+const state = { mode: 'link', design: { ...DEFAULT_DESIGN }, matrix: null, content: '', logo: null, logoData: null, history: [], busy: false };
 let toastTimer, renderTimer, logoRevision = 0;
 function toast(message) {
   $('toast').textContent = message; $('toast').hidden = false;
@@ -24,6 +24,8 @@ function setTheme(theme) {
 }
 function setEnabled(valid) {
   ['downloadPng', 'downloadSvg', 'copyImage'].forEach(id => { $(id).disabled = !valid; });
+  $('saveHistory').disabled = !valid || state.mode === 'wifi';
+  $('saveHistory').hidden = state.mode === 'wifi';
 }
 function syncDesign() {
   for (const key of ['color1', 'color2', 'background']) {
@@ -127,6 +129,40 @@ async function addLogo(event) {
   finally { URL.revokeObjectURL(url); }
 }
 function removeLogo() { ++logoRevision; state.logo = null; state.logoData = null; $('logoOptions').hidden = true; refresh(); }
+function updateHistoryCount() { $('historyCount').textContent = String(state.history.length); }
+function saveHistory() {
+  if (!state.matrix) return;
+  try {
+    const entry = newHistoryEntry(state.mode, state.content, state.design);
+    const next = [entry, ...state.history.filter(item => item.content !== entry.content || item.mode !== entry.mode)].slice(0, 30);
+    if (writeStorage(HISTORY_KEY, JSON.stringify(next))) { state.history = next; updateHistoryCount(); toast('Guardado en el historial de este navegador.'); }
+  } catch (e) { toast(e.message); }
+}
+function renderHistory() {
+  const list = $('historyList'); list.replaceChildren();
+  $('clearHistory').disabled = state.history.length === 0;
+  if (!state.history.length) { const p = document.createElement('p'); p.className = 'history-empty'; p.textContent = 'Aún no has guardado ningún QR.'; list.append(p); return; }
+  for (const item of state.history) {
+    const row = document.createElement('div'); row.className = 'history-item';
+    const text = document.createElement('div'); text.className = 'history-text';
+    const title = document.createElement('strong'); title.textContent = item.content;
+    const date = document.createElement('small'); date.textContent = `${item.mode === 'link' ? 'Enlace' : 'Texto'} · ${new Date(item.createdAt).toLocaleDateString('es')}`;
+    text.append(title, date);
+    const use = document.createElement('button'); use.className = 'button secondary'; use.textContent = 'Usar'; use.setAttribute('aria-label', `Usar QR ${item.content.slice(0, 70)}`);
+    use.addEventListener('click', () => {
+      state.design = cleanDesign(item.design); removeLogo(); syncDesign();
+      $(item.mode === 'link' ? 'linkInput' : 'textInput').value = item.content;
+      switchMode(item.mode); $('historyDialog').close(); toast('Contenido y colores restaurados.');
+    });
+    const remove = document.createElement('button'); remove.className = 'text-button danger'; remove.textContent = 'Borrar'; remove.setAttribute('aria-label', `Borrar QR ${item.content.slice(0, 70)}`);
+    remove.addEventListener('click', () => {
+      const next = state.history.filter(candidate => candidate.id !== item.id);
+      if (writeStorage(HISTORY_KEY, JSON.stringify(next))) { state.history = next; updateHistoryCount(); renderHistory(); }
+    });
+    row.append(text, use, remove); list.append(row);
+  }
+}
+
 for (const [index, preset] of PRESETS.entries()) {
   const button = document.createElement('button'); button.type = 'button'; button.className = 'preset'; button.setAttribute('aria-pressed', String(index === 0));
   const dot = document.createElement('span'); dot.className = 'preset-dot'; dot.style.background = `linear-gradient(135deg,${preset.color1},${preset.color2})`;
@@ -158,11 +194,22 @@ $('logoInput').addEventListener('change', addLogo);
 $('removeLogo').addEventListener('click', removeLogo);
 $('logoScale').addEventListener('input', () => { state.design.logoScale = Number($('logoScale').value) / 100; syncDesign(); refresh(); });
 $('downloadPng').addEventListener('click', exportPng); $('downloadSvg').addEventListener('click', exportSvg); $('copyImage').addEventListener('click', copyImage);
+$('saveHistory').addEventListener('click', saveHistory);
+$('historyOpen').addEventListener('click', () => { renderHistory(); $('historyDialog').showModal(); });
+['historyClose', 'historyDone'].forEach(id => $(id).addEventListener('click', () => $('historyDialog').close()));
+$('historyDialog').addEventListener('click', event => {
+  if (event.target !== $('historyDialog')) return;
+  const bounds = $('historyDialog').getBoundingClientRect();
+  if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) $('historyDialog').close();
+});
+$('clearHistory').addEventListener('click', () => {
+  if (!confirm('¿Borrar todos los QR guardados en este navegador?')) return;
+  if (writeStorage(HISTORY_KEY, '[]')) { state.history = []; updateHistoryCount(); renderHistory(); }
+});
 $('themeToggle').addEventListener('click', () => { const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'; setTheme(next); writeStorage(THEME_KEY, next); });
 for (const id of ['donate', 'topDonate']) {
   if (config.donationUrl) $(id).href = config.donationUrl; else $(id).hidden = true;
 }
 $('authorLink').href = config.authorUrl;
-// Eliminar el historial guardado por versiones anteriores, si existe.
-try { localStorage.removeItem(LEGACY_HISTORY_KEY); } catch { /* Almacenamiento bloqueado por el navegador. */ }
+state.history = readHistory(readStorage(HISTORY_KEY)); updateHistoryCount();
 setTheme(readStorage(THEME_KEY) === 'light' ? 'light' : 'dark'); syncDesign(); refresh();

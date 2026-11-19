@@ -1,9 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
 import jsQR from 'jsqr';
-import { normalizeLink, wifiContent, createMatrix, cleanDesign, analyzeContrast, DEFAULT_DESIGN } from '../src/core.js';
+import { normalizeLink, wifiContent, createMatrix, cleanDesign, analyzeContrast, newHistoryEntry, readHistory, DEFAULT_DESIGN } from '../src/core.js';
 import { renderCanvas, renderSvg } from '../src/render.js';
 
 function decode(canvas) {
@@ -22,18 +21,15 @@ test('escapa los datos Wi-Fi y conserva caracteres especiales sin quitar espacio
   assert.throws(() => wifiContent({ ssid: 'ñ'.repeat(17), password: '12345678' }));
   assert.throws(() => wifiContent({ ssid: 'Red', password: '' }));
 });
-test('la web no guarda historial de QR y elimina los controles antiguos', () => {
-  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-  const app = readFileSync(new URL('../src/app.js', import.meta.url), 'utf8');
-  const core = readFileSync(new URL('../src/core.js', import.meta.url), 'utf8');
-  for (const id of ['historyOpen', 'historyCount', 'saveHistory', 'historyDialog', 'clearHistory']) {
-    assert.doesNotMatch(html, new RegExp('id="' + id + '"'));
-    assert.doesNotMatch(app, new RegExp("['\"]" + id + "['\"]"));
-  }
-  assert.doesNotMatch(app, /newHistoryEntry|readHistory|state\.history/);
-  assert.doesNotMatch(core, /export function (readHistory|newHistoryEntry)/);
-  assert.match(app, /localStorage\.removeItem\(LEGACY_HISTORY_KEY\)/);
-  assert.doesNotMatch(app, /localStorage\.setItem\(\s*HISTORY_KEY/);
+test('el historial rechaza Wi-Fi y sanea datos almacenados o corruptos', () => {
+  assert.throws(() => newHistoryEntry('wifi', 'WIFI:secret', DEFAULT_DESIGN));
+  assert.throws(() => newHistoryEntry('text', 'WIFI:secret', DEFAULT_DESIGN));
+  const entry = newHistoryEntry('link', 'https://example.com/', { color1: 'url(javascript:x)', logoScale: 1 });
+  assert.equal(entry.design.color1, DEFAULT_DESIGN.color1);
+  assert.equal(entry.design.logoScale, .2);
+  assert.equal(readHistory('broken').length, 0);
+  assert.equal(readHistory(JSON.stringify([{ mode: 'wifi', id: 'bad', content: 'secret' }, entry])).length, 1);
+  assert.equal(readHistory(JSON.stringify(Array.from({ length: 40 }, () => entry))).length, 30);
 });
 test('detecta colores claros o invertidos y limita diseños', () => {
   assert.equal(analyzeContrast(DEFAULT_DESIGN).level, 'good');
