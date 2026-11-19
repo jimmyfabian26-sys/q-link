@@ -9,6 +9,8 @@ Generador de códigos QR personalizados para **web y escritorio**. Crea códigos
 
 ## Web
 
+**Usar ahora:** [q-link-jet.vercel.app](https://q-link-jet.vercel.app).
+
 ```powershell
 cd web
 npm ci
