@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q-Link</title>
+  <link rel="stylesheet" href="styles/themes.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/qr-preview.css" />
+</head>
+<body data-theme="dark">
+
+  <div class="app-shell">
+
+    <!-- ---------- TOP BAR ---------- -->
+    <header class="topbar">
+      <h1 class="brand">Q-Link</h1>
+      <div class="topbar-actions">
+        <button id="btnHistory" class="icon-btn" title="Historial" aria-label="Historial">🕘</button>
+        <button id="btnPresets" class="icon-btn" title="Presets" aria-label="Presets">🎨</button>
+        <button id="btnTheme" class="icon-btn" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
+      </div>
+    </header>
+
+    <!-- ---------- MODE TOGGLE ---------- -->
+    <div class="mode-toggle" role="tablist">
+      <button class="mode-btn active" id="modeLinkBtn" role="tab" aria-selected="true">🔗 Link</button>
+      <button class="mode-btn" id="modeWifiBtn" role="tab" aria-selected="false">📶 Red WiFi</button>
+    </div>
+
+    <!-- ---------- INPUT: MODO LINK ---------- -->
+    <section class="input-panel" id="linkPanel">
+      <label class="field-label" for="urlInput">Ingrese el enlace 🔗</label>
+      <input
+        id="urlInput"
+        type="text"
+        class="text-input"
+        placeholder="Ejemplo: tiktok.com o www.google.com"
+        autocomplete="off"
+      />
+      <p class="status-text" id="linkStatus">Esperando URL...</p>
+    </section>
+
+    <!-- ---------- INPUT: MODO WIFI ---------- -->
+    <section class="input-panel hidden" id="wifiPanel">
+      <div class="field-group">
+        <label class="field-label" for="wifiSsid">Nombre de la red (SSID)</label>
+        <input id="wifiSsid" type="text" class="text-input" placeholder="MiRedWiFi" autocomplete="off" />
+      </div>
+      <div class="field-row">
+        <div class="field-group grow">
+          <label class="field-label" for="wifiPassword">Contraseña</label>
+          <input id="wifiPassword" type="password" class="text-input" placeholder="••••••••" autocomplete="off" />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="wifiSecurity">Seguridad</label>
+          <select id="wifiSecurity" class="text-input select-input">
+            <option value="WPA" selected>WPA/WPA2</option>
+            <option value="WEP">WEP</option>
+            <option value="nopass">Ninguna</option>
+          </select>
+        </div>
+      </div>
+      <label class="checkbox-row">
+        <input type="checkbox" id="wifiHidden" />
+        <span>Red oculta</span>
+      </label>
+      <p class="status-text" id="wifiStatus">Completa el formulario de la red...</p>
+    </section>
+
+    <!-- ---------- CONTENIDO CENTRAL ---------- -->
+    <main class="content-container">
+
+      <!-- VISTA PREVIA -->
+      <div class="preview-block">
+        <span class="preview-label">VISTA PREVIA</span>
+        <div class="qr-frame" id="qrFrame">
+          <canvas id="qrCanvas" width="350" height="350"></canvas>
+          <div class="qr-empty-msg" id="qrEmptyMsg">El QR aparecerá aquí</div>
+        </div>
+        <div class="design-score" id="designScore" hidden>
+          <span class="score-badge" id="scoreBadge">—</span>
+          <span class="score-ratio" id="scoreRatio"></span>
+        </div>
+      </div>
+
+      <!-- BOTONES FLOTANTES -->
+      <div class="floating-actions">
+        <button id="btnEdit" class="big-btn" title="Personalizar" aria-pressed="false">🖌</button>
+        <button id="btnSave" class="big-btn" title="Guardar / Exportar">💾</button>
+      </div>
+
+      <!-- PANEL DE PERSONALIZACIÓN -->
+      <aside class="customize-panel" id="customizePanel">
+        <div class="panel-title-pill">PERSONALIZAR</div>
+
+        <p class="group-label">Degradado del QR:</p>
+        <div class="color-pair">
+          <button class="color-swatch" id="btnQr1" style="background:#000000"></button>
+          <span class="arrow">➔</span>
+          <button class="color-swatch" id="btnQr2" style="background:#000000"></button>
+        </div>
+        <div class="dir-row" id="dirRowQr">
+          <button class="dir-btn" data-target="qr" data-mode="horizontal" title="Horizontal">→</button>
+          <button class="dir-btn" data-target="qr" data-mode="vertical" title="Vertical">↓</button>
+          <button class="dir-btn" data-target="qr" data-mode="diagonal" title="Diagonal">↘</button>
+          <button class="dir-btn" data-target="qr" data-mode="radial" title="Radial">◎</button>
+        </div>
+
+        <p class="group-label">Degradado del Fondo:</p>
+        <div class="color-pair">
+          <button class="color-swatch" id="btnBg1" style="background:#ffffff"></button>
+          <span class="arrow">➔</span>
+          <button class="color-swatch" id="btnBg2" style="background:#ffffff"></button>
+        </div>
+        <div class="dir-row" id="dirRowBg">
+          <button class="dir-btn" data-target="bg" data-mode="horizontal" title="Horizontal">→</button>
+          <button class="dir-btn" data-target="bg" data-mode="vertical" title="Vertical">↓</button>
+          <button class="dir-btn" data-target="bg" data-mode="diagonal" title="Diagonal">↘</button>
+          <button class="dir-btn" data-target="bg" data-mode="radial" title="Radial">◎</button>
+        </div>
+
+        <button class="action-btn" id="btnAddLogo" disabled>Añadir Logo</button>
+        <div class="logo-controls hidden" id="logoControls">
+          <label class="field-label small" for="logoSlider">Tamaño del logo</label>
+          <input type="range" id="logoSlider" min="10" max="40" value="22" />
+          <label class="checkbox-row">
+            <input type="checkbox" id="logoWhiteBg" checked />
+            <span>Fondo blanco detrás del logo</span>
+          </label>
+          <button class="link-btn danger" id="btnRemoveLogo">Quitar Logo ❌</button>
+        </div>
+
+        <input type="file" id="logoFileInput" accept="image/png,image/jpeg,image/svg+xml" class="hidden" />
+
+        <div class="panel-spacer"></div>
+        <button class="action-btn ghost" id="btnReset">Restablecer</button>
+        <button class="action-btn outline" id="btnSavePreset">Guardar como Preset</button>
+      </aside>
+
+    </main>
+
+    <input type="color" id="colorPickerInput" class="color-picker-hidden" />
+  </div>
+
+  <!-- ---------- MODAL: HISTORIAL ---------- -->
+  <div class="modal-overlay hidden" id="historyModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Historial de QRs</h2>
+        <button class="icon-btn" id="closeHistory" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal-body" id="historyList">
+        <p class="empty-state">No hay QRs guardados todavía.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="action-btn ghost" id="btnClearHistory">Vaciar historial</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- MODAL: PRESETS ---------- -->
+  <div class="modal-overlay hidden" id="presetsModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Presets de Diseño</h2>
+        <button class="icon-btn" id="closePresets" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="group-label">Predefinidos</p>
+        <div class="presets-grid" id="presetsGridDefault"></div>
+        <p class="group-label">Mis Presets</p>
+        <div class="presets-grid" id="presetsGridUser"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- MODAL: EXPORTAR ---------- -->
+  <div class="modal-overlay hidden" id="exportModal">
+    <div class="modal-box small">
+      <div class="modal-header">
+        <h2>Exportar QR</h2>
+        <button class="icon-btn" id="closeExport" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="group-label">Formato PNG</p>
+        <div class="export-row">
+          <button class="action-btn outline" data-size="512">512px</button>
+          <button class="action-btn outline" data-size="1024">1024px</button>
+          <button class="action-btn outline" data-size="2048">2048px</button>
+        </div>
+        <p class="group-label">Vectorial</p>
+        <button class="action-btn outline" id="btnExportSvg">Exportar como SVG</button>
+        <p class="group-label">Portapapeles</p>
+        <button class="action-btn outline" id="btnCopyClipboard">Copiar imagen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- TOAST DE ESTADO ---------- -->
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="renderer/gradient-engine.js"></script>
+  <script src="renderer/design-analyzer.js"></script>
+  <script src="renderer/qr-generator.js"></script>
+  <script src="renderer/link-mode.js"></script>
+  <script src="renderer/wifi-mode.js"></script>
+  <script src="renderer/history.js"></script>
+  <script src="renderer/app.js"></script>
+</body>
+</html>

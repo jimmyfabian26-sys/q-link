@@ -1,0 +1,11 @@
+node_modules
+dist
+build
+src
+main.js
+preload.js
+electron-builder.json
+web/node_modules
+web/test
+*.zip
+*.log

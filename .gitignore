@@ -1,0 +1,53 @@
+node_modules/
+dist/
+build/
+*.log
+.DS_Store
+Thumbs.db
+
+# Preparación del portafolio
+
+# Entornos, caches y resultados de compilación
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.log
+*-log.txt
+.DS_Store
+Thumbs.db
+
+# Configuración privada y credenciales (conservar plantillas públicas)
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.pfx
+*.p12
+*.jks
+*.keystore
+
+# Binarios y paquetes: distribuir mediante releases revisadas
+*.exe
+*.msi
+*.msix
+*.appx
+*.appxbundle
+*.zip
+
+# Historial y preferencias de usuario
+/config.json
+/history.json
+/user-presets.json
+/src/assets/presets/user-presets.json
+
+# Cachés locales de despliegue
+.vercel/

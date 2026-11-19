@@ -1,0 +1,25 @@
+{
+  "name": "q-link",
+  "productName": "Q-Link",
+  "version": "1.0.0",
+  "description": "Generador profesional de codigos QR con degradados, logos y modo WiFi",
+  "main": "main.js",
+  "author": "Jimmy Diaz",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win nsis",
+    "build:appx": "electron-builder --win appx",
+    "pack": "electron-builder --dir"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.3"
+  },
+  "devDependencies": {
+    "electron": "^42.4.1",
+    "electron-builder": "^26.15.3"
+  }
+}

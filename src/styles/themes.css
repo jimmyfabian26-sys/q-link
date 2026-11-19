@@ -1,0 +1,94 @@
+/* themes.css
+   Variables de color para modo oscuro (por defecto) y modo claro,
+   equivalentes a update_theme_ui() del Python original.
+   Tambien define la apariencia del grid de presets. */
+
+:root {
+  --accent: #00d4ff;
+  --danger: #ff4d4d;
+  --success: #28a745;
+  --error: #dc3545;
+  --radius-lg: 25px;
+  --radius-md: 15px;
+  --radius-sm: 10px;
+}
+
+/* ---------- TEMA OSCURO (por defecto) ---------- */
+body[data-theme='dark'] {
+  --bg-main: #121212;
+  --bg-elevated: #1a1a1a;
+  --bg-elevated-2: #1f1f1f;
+  --bg-panel: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #888888;
+  --border-ui: #333333;
+  --input-bg: #1a1a1a;
+  --btn-reset-bg: #333333;
+  --swatch-border: #444444;
+  --dirbtn-bg: #252525;
+  --bigbtn-bg: #1a1a1a;
+  --topbar-icon-bg: #1a1a1a;
+}
+
+/* ---------- TEMA CLARO ---------- */
+body[data-theme='light'] {
+  --bg-main: #e3f2fd;
+  --bg-elevated: #ffffff;
+  --bg-elevated-2: #f8fbff;
+  --bg-panel: #ffffff;
+  --text-primary: #2c3e50;
+  --text-secondary: #5a7d9a;
+  --border-ui: #bbdefb;
+  --input-bg: #ffffff;
+  --btn-reset-bg: #d1e3f3;
+  --swatch-border: #bbdefb;
+  --dirbtn-bg: #f8fbff;
+  --bigbtn-bg: #f8fbff;
+  --topbar-icon-bg: #ffffff;
+}
+
+/* ---------- Grid de presets ---------- */
+.presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.preset-card {
+  border: 2px solid var(--border-ui);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  cursor: pointer;
+  background: var(--bg-elevated-2);
+  transition: border-color 0.2s ease, transform 0.15s ease;
+  text-align: center;
+}
+
+.preset-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.preset-swatch {
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border-ui);
+}
+
+.preset-name {
+  font-size: 12px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.preset-remove {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--danger);
+  background: none;
+  border: none;
+  cursor: pointer;
+}

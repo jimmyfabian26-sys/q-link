@@ -1,0 +1,15 @@
+{
+  "name": "q-link-web",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Q-Link Web por J.D DEV: generador QR local para enlaces, Wi-Fi y texto",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "engines": { "node": ">=22" },
+  "dependencies": { "qrcode": "1.5.4" },
+  "devDependencies": { "esbuild": "0.25.12", "jsqr": "1.4.0", "@napi-rs/canvas": "0.1.80" }
+}

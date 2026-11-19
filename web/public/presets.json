@@ -1,0 +1,112 @@
+[
+  {
+    "id": "clasico",
+    "name": "Clásico Blanco y Negro",
+    "qrColor1": "#000000",
+    "qrColor2": "#000000",
+    "qrGradMode": "diagonal",
+    "bgColor1": "#ffffff",
+    "bgColor2": "#ffffff",
+    "bgGradMode": "diagonal",
+    "logoScale": 0.22
+  },
+  {
+    "id": "neon-azul",
+    "name": "Neón Azul",
+    "qrColor1": "#00d4ff",
+    "qrColor2": "#0066ff",
+    "qrGradMode": "diagonal",
+    "bgColor1": "#0a0a0f",
+    "bgColor2": "#121225",
+    "bgGradMode": "vertical",
+    "logoScale": 0.22
+  },
+  {
+    "id": "atardecer",
+    "name": "Atardecer",
+    "qrColor1": "#ff5f6d",
+    "qrColor2": "#ffc371",
+    "qrGradMode": "diagonal",
+    "bgColor1": "#2c0a1f",
+    "bgColor2": "#5c1a3a",
+    "bgGradMode": "diagonal",
+    "logoScale": 0.20
+  },
+  {
+    "id": "bosque",
+    "name": "Bosque",
+    "qrColor1": "#0f4c2a",
+    "qrColor2": "#2e8b57",
+    "qrGradMode": "vertical",
+    "bgColor1": "#f0fff0",
+    "bgColor2": "#d4f1d4",
+    "bgGradMode": "vertical",
+    "logoScale": 0.22
+  },
+  {
+    "id": "oceano",
+    "name": "Océano Profundo",
+    "qrColor1": "#003973",
+    "qrColor2": "#00c6ff",
+    "qrGradMode": "horizontal",
+    "bgColor1": "#001220",
+    "bgColor2": "#012b4a",
+    "bgGradMode": "diagonal",
+    "logoScale": 0.20
+  },
+  {
+    "id": "lavanda",
+    "name": "Lavanda Suave",
+    "qrColor1": "#6a3ea1",
+    "qrColor2": "#a86fd6",
+    "qrGradMode": "diagonal",
+    "bgColor1": "#f7f3fb",
+    "bgColor2": "#ecdcf5",
+    "bgGradMode": "vertical",
+    "logoScale": 0.22
+  },
+  {
+    "id": "dorado-elegante",
+    "name": "Dorado Elegante",
+    "qrColor1": "#bf953f",
+    "qrColor2": "#fcf6ba",
+    "qrGradMode": "diagonal",
+    "bgColor1": "#1a1a1a",
+    "bgColor2": "#2b2b2b",
+    "bgGradMode": "diagonal",
+    "logoScale": 0.20
+  },
+  {
+    "id": "rosa-vibrante",
+    "name": "Rosa Vibrante",
+    "qrColor1": "#ff0080",
+    "qrColor2": "#ff8c00",
+    "qrGradMode": "horizontal",
+    "bgColor1": "#fff5f8",
+    "bgColor2": "#ffe3ef",
+    "bgGradMode": "horizontal",
+    "logoScale": 0.22
+  },
+  {
+    "id": "monocromo-gris",
+    "name": "Monocromo Gris",
+    "qrColor1": "#2b2b2b",
+    "qrColor2": "#6e6e6e",
+    "qrGradMode": "vertical",
+    "bgColor1": "#fafafa",
+    "bgColor2": "#e0e0e0",
+    "bgGradMode": "vertical",
+    "logoScale": 0.22
+  },
+  {
+    "id": "fuego",
+    "name": "Fuego",
+    "qrColor1": "#ff0000",
+    "qrColor2": "#ff9900",
+    "qrGradMode": "diagonal",
+    "bgColor1": "#160000",
+    "bgColor2": "#330a00",
+    "bgGradMode": "diagonal",
+    "logoScale": 0.20
+  }
+]

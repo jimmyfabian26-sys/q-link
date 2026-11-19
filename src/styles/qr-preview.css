@@ -1,0 +1,77 @@
+/* qr-preview.css
+   Estilos especificos del bloque de vista previa del QR. */
+
+.preview-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.preview-label {
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--text-primary);
+}
+
+.qr-frame {
+  width: min(340px, 80vw);
+  height: min(340px, 80vw);
+  background: var(--bg-elevated-2);
+  border-radius: 35px;
+  border: 3px solid var(--border-ui);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: border-color 0.25s ease, background 0.25s ease;
+  overflow: hidden;
+}
+
+#qrCanvas {
+  width: 90%;
+  height: 90%;
+  image-rendering: pixelated;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+#qrCanvas.hidden {
+  display: none;
+}
+
+.qr-empty-msg {
+  position: absolute;
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.qr-empty-msg.hidden {
+  display: none;
+}
+
+.design-score {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.score-badge {
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.score-badge.bueno { background: var(--success); }
+.score-badge.regular { background: #e0a800; }
+.score-badge.malo { background: var(--error); }
+
+.score-ratio {
+  color: var(--text-secondary);
+}

@@ -1,0 +1,40 @@
+{
+  "appId": "com.jimmydiaz.qlink",
+  "productName": "Q-Link",
+  "copyright": "Copyright © 2026 Jimmy Diaz",
+  "directories": {
+    "output": "dist",
+    "buildResources": "build"
+  },
+  "files": [
+    "main.js",
+    "preload.js",
+    "src/**/*",
+    "package.json",
+    "!src/assets/presets/user-presets.json",
+    "!**/*.map"
+  ],
+  "asar": true,
+  "win": {
+    "target": [
+      { "target": "nsis", "arch": ["x64"] },
+      { "target": "appx", "arch": ["x64"] }
+    ],
+    "icon": "src/assets/icons/icon.ico"
+  },
+  "appx": {
+    "applicationId": "QLink",
+    "identityName": "JimmyDiaz.Q-link.Qr",
+    "publisher": "CN=JimmyDiaz",
+    "publisherDisplayName": "Jimmy Diaz",
+    "languages": ["es-EC", "es"],
+    "displayName": "Q-Link"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Q-Link"
+  }
+}
