@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="web/public/brand/q-link.png" width="116" alt="Logotipo original de Q-Link" />
+<img src="web/public/brand/q-link.png" width="128" alt="Logotipo oficial de Q-Link" />
 
 # 🔗 Q-Link
 
@@ -9,19 +9,31 @@
 Crea códigos QR para enlaces, texto y redes Wi-Fi. Personaliza colores, degradados y logotipos, y exporta tus diseños con facilidad.
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=black)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css&logoColor=white)
 ![Electron](https://img.shields.io/badge/Electron-42-47848F?logo=electron&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-22%2B-339933?logo=nodedotjs&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=white)
 ![Windows](https://img.shields.io/badge/Escritorio-Windows-0078D4?logo=windows11&logoColor=white)
 [![Pruebas](https://github.com/jimmyfabian26-sys/q-link/actions/workflows/checks.yml/badge.svg)](https://github.com/jimmyfabian26-sys/q-link/actions/workflows/checks.yml)
 
-[🌐 **Abrir Q-Link Web**](https://q-link-jet.vercel.app) · [📖 **Guía de la web**](web/README.md) · [💻 **Código fuente**](https://github.com/jimmyfabian26-sys/q-link)
+[🌐 **Probar la web**](https://q-link-jet.vercel.app) · [📖 **Guía web**](web/README.md) · [💻 **Código fuente**](https://github.com/jimmyfabian26-sys/q-link) · [⚙️ **Pruebas**](https://github.com/jimmyfabian26-sys/q-link/actions/workflows/checks.yml)
 
 **J.D DEV · Jimmy Díaz**
 
 </div>
 
 ---
+
+## 📑 Contenido
+
+- [Características](#-características-principales)
+- [Tecnologías y lenguajes](#️-tecnologías-utilizadas)
+- [Ediciones web y escritorio](#-ediciones-del-proyecto)
+- [Ejecutar la web](#-ejecutar-q-link-web)
+- [Ejecutar en Windows](#️-ejecutar-q-link-en-windows)
+- [Despliegue y pruebas](#️-despliegue-en-vercel)
+- [Privacidad y condiciones](#-privacidad-seguridad-y-lectura)
 
 ## ✨ Características principales
 
@@ -45,6 +57,11 @@ Crea códigos QR para enlaces, texto y redes Wi-Fi. Personaliza colores, degrada
 | **Aplicación web** | esbuild y JavaScript del lado del navegador |
 | **Pruebas** | Node.js Test Runner, `jsQR`, `@napi-rs/canvas` |
 | **Integración y despliegue** | GitHub Actions, Vercel |
+
+## 🧭 ¿Qué edición elegir?
+
+- **Web:** úsala desde el navegador sin instalar nada; ideal para crear y exportar códigos QR rápidamente.
+- **Escritorio:** aplicación Electron para Windows con historial y presets locales.
 
 ## 📦 Ediciones del proyecto
 
@@ -125,6 +142,10 @@ electron-builder.json   Empaquetado de escritorio
 vercel.json             Despliegue web desde la raíz del repositorio
 .github/workflows/      Comprobaciones automáticas
 ```
+
+## 🖼️ Vista de la aplicación
+
+La interfaz web está disponible para probar directamente: **[Abrir Q-Link Web](https://q-link-jet.vercel.app)**. El logotipo mostrado al inicio de este README es el recurso original incluido en el repositorio.
 
 ## 🎨 Identidad visual
 
