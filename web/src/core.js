@@ -52,18 +52,3 @@ export function analyzeContrast(design) {
   const ratio = (bg + 0.05) / (foreground + 0.05);
   return { ratio, level: ratio >= 4.5 ? 'good' : ratio >= 3 ? 'fair' : 'poor' };
 }
-export function readHistory(raw) {
-  try {
-    const data = JSON.parse(raw);
-    if (!Array.isArray(data)) return [];
-    return data.filter(item => item && typeof item.id === 'string' && ['link', 'text'].includes(item.mode) && typeof item.content === 'string' && item.content.length <= 2000 && !item.content.startsWith('WIFI:')).slice(0, 30).map(item => ({
-      id: item.id.slice(0, 80), mode: item.mode, content: item.content,
-      createdAt: Number.isFinite(item.createdAt) ? item.createdAt : 0, design: cleanDesign(item.design),
-    }));
-  } catch { return []; }
-}
-export function newHistoryEntry(mode, content, design) {
-  if (!['link', 'text'].includes(mode) || content.startsWith('WIFI:')) throw new Error('Las credenciales Wi-Fi no se guardan en el historial.');
-  if (content.length > 2000) throw new Error('Este contenido es demasiado largo para el historial.');
-  return { id: globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`, mode, content, createdAt: Date.now(), design: cleanDesign(design) };
-}

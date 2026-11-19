@@ -8,8 +8,9 @@ Generador de QR para enlaces, texto y redes Wi-Fi. Funciona en el navegador y ex
 - Cinco paletas, colores personalizados, fondo y degradados lineales o radiales.
 - Logos PNG/JPG de hasta 2 MB, rasterizados localmente y limitados al 20% del área QR.
 - PNG de 512, 1024 y 2048 px; SVG vectorial y copia de imagen cuando el navegador lo permite.
-- Historial local opcional para enlaces/texto, hasta 30 entradas, con reutilización y borrado.
-- Las credenciales Wi-Fi no se guardan en el historial.
+- Sin historial: la web no conserva enlaces, textos ni claves Wi-Fi de los QR generados.
+- Se elimina del almacenamiento local el historial creado por versiones web anteriores al abrir la versión actual.
+- La preferencia de tema claro/oscuro se puede recordar localmente; no contiene datos del QR.
 - Tema claro/oscuro, interfaz responsive, navegación por teclado y diálogos accesibles.
 - Botón de aporte voluntario mediante el enlace PayPal proporcionado por el autor.
 
@@ -55,15 +56,15 @@ npx vercel --prod
 
 ## Pruebas
 
-`npm test` ejecuta 12 pruebas con `node:test`: validación de enlaces, contenido Wi-Fi, protección del historial, contraste y decodificación real de QR exportados en distintas resoluciones, degradados y logos. Las bibliotecas de canvas y decodificación solo son dependencias de desarrollo.
+`npm test` ejecuta 12 pruebas con `node:test`: validación de enlaces y Wi-Fi, ausencia de historial en la web, contraste y decodificación real de QR exportados en distintas resoluciones, degradados y logos. Las bibliotecas de canvas y decodificación solo son dependencias de desarrollo.
 
 ## Estructura
 
 ```text
 index.html          Interfaz y contenido
 config.json         Enlaces públicos del autor
-src/app.js          Interacciones y persistencia local
-src/core.js         Contenido QR, validación, contraste e historial
+src/app.js          Interacciones, tema y limpieza del historial antiguo
+src/core.js         Contenido QR, validación y contraste
 src/render.js       Rasterizado PNG y exportación SVG
 src/style.css       Temas y diseño responsive
 scripts/            Compilación y servidor de desarrollo

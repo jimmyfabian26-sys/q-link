@@ -44,7 +44,7 @@ Crea códigos QR para enlaces, texto y redes Wi-Fi. Personaliza colores, degrada
 | 🎨 **Personalización** | Colores, degradados, paletas y logotipos propios. |
 | 📥 **Exportación** | Descarga PNG (hasta 2048 px en la web) y SVG vectorial. |
 | 🌓 **Tema** | Interfaz web adaptable con modos claro y oscuro. |
-| 🗂️ **Historial local** | Guardado opcional de hasta 30 QR de enlaces/texto en el navegador, sin guardar credenciales Wi-Fi. |
+| 🔒 **Privacidad web** | Sin historial ni guardado de contenidos QR; el navegador solo puede conservar la preferencia de tema. |
 | 🖥️ **Escritorio** | Aplicación Electron para Windows con historial y ajustes de diseño. |
 
 ## 🛠️ Tecnologías utilizadas
@@ -81,9 +81,9 @@ npm test
 npm run dev
 ```
 
-Abre `http://localhost:4173`. Incluye enlaces, texto, Wi-Fi, cinco paletas, colores y degradados, logo, PNG de hasta 2048 px, SVG, tema claro/oscuro e historial local opcional.
+Abre `http://localhost:4173`. Incluye enlaces, texto, Wi-Fi, cinco paletas, colores y degradados, logo, PNG de hasta 2048 px, SVG y tema claro/oscuro, sin historial web.
 
-La generación ocurre en el dispositivo. El historial guarda únicamente las entradas de enlace/texto que el usuario elige, y no guarda las credenciales Wi-Fi. Los pagos se abren en PayPal mediante el enlace proporcionado por el autor.
+La generación ocurre en el navegador. La edición web no guarda el contenido de los QR ni ofrece historial; borra el historial local de versiones anteriores al abrirse. Únicamente puede persistir la preferencia de tema. Los pagos se abren en PayPal mediante el enlace proporcionado por el autor.
 
 ## 🖥️ Ejecutar Q-Link en Windows
 
