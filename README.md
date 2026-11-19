@@ -67,6 +67,10 @@ vercel.json             Despliegue web desde la raíz del repositorio
 .github/workflows/      Comprobaciones automáticas
 ```
 
+## Identidad visual
+
+La web y Electron utilizan el logo azul y el icono originales de Q-Link, conservando la transparencia. El encabezado, el favicon, los recursos de pantalla de inicio y el empaquetado de escritorio comparten esta identidad.
+
 ## Lectura y privacidad
 
 Los indicadores de contraste orientan el diseño, pero no garantizan la lectura de todos los QR. Prueba los diseños con varios lectores antes de imprimirlos, especialmente con logos o colores claros.
